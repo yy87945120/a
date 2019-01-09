@@ -4,14 +4,28 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import md5 from 'js-md5';
-import Vuex from 'vuex'
+import store from './store'
 // import E from 'wangeditor'
-Vue.use(Vuex)
+
+
 Vue.prototype.$md5 = md5;
 
 import VueDND from 'awe-dnd'
 Vue.use(VueDND)
 import 'wangeditor/release/wangEditor.min.css'
+
+//引入v-charts 部分引入
+//柱状图
+import Histogram from 'v-charts/lib/histogram.common'
+Vue.component(Histogram.name, Histogram)
+
+//饼图
+import Pie from 'v-charts/lib/pie.common'
+Vue.component(Pie.name, Pie)
+
+
+
+//
 
 
 //input 焦点事件
@@ -53,6 +67,7 @@ Vue.config.productionTip = false
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })

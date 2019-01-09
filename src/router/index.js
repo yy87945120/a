@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import login from '@/views/login'
 import portal from '@/views/portal'
 import project from '@/views/project'
+import project2 from '@/views/project2'
 import detail from '@/views/detail'
 import back from '@/views/back'
 import user from '@/views/user'
@@ -22,6 +23,8 @@ import newproject from '@/views/newproject'
 import visit from '@/views/visit'
 
 import projectdetail from '@/views/projectdetail';
+
+
 
 Vue.use(Router)
 
@@ -98,6 +101,11 @@ export default new Router({
               path: '/project',
               name: 'project',
               component : project
+          },
+          {
+              path: '/project2',
+              name: 'project2',
+              component : project2
           },
           {
               path: '/detail',

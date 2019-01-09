@@ -59,17 +59,21 @@
                 <el-menu-item index="3-2" @click="backRouter('project');addTab('project','我的项目')">
                   我的项目
                 </el-menu-item>
+
+                <el-menu-item index="3-3" @click="backRouter('project2');addTab('project2','我的项目2')">
+                  我的项目2
+                </el-menu-item>
               </el-submenu>
 
-              <el-menu-item index="4" @click="backRouter('newproject');addTab('newproject','科研立项')">
+              <!-- <el-menu-item index="4" @click="backRouter('newproject');addTab('newproject','科研立项')">
                 <i class="el-icon-setting"></i>
                 <span slot="title">科研立项</span>
-              </el-menu-item>
+              </el-menu-item> -->
 
               <el-submenu index="5">
                <template slot="title">
                 <i class="el-icon-document"></i>
-                <span slot="title">审核</span>
+                <span slot="title">质量管理</span>
               </template>
               <el-menu-item index="5-1" @click="backRouter('user')">
                 CRF发布审核
@@ -82,22 +86,22 @@
             <el-submenu index="6">
              <template slot="title">
               <i class="el-icon-document"></i>
-              <span slot="title">数据录入</span>
+              <span slot="title">数据接口</span>
             </template>
-            <el-menu-item index="5-1" @click="backRouter('user')">
+           <!--  <el-menu-item index="5-1" @click="backRouter('user')">
               CRF发布审核
             </el-menu-item>
             <el-menu-item index="5-2" @click="backRouter('deo')">
               问卷修改审核
-            </el-menu-item>
+            </el-menu-item> -->
           </el-submenu>
 
           <el-submenu index="7">
            <template slot="title">
             <i class="el-icon-document"></i>
-            <span slot="title">项目总结</span>
+            <span slot="title">移动短信管理</span>
           </template>
-          <el-menu-item index="5-1" @click="backRouter('user')">
+          <!-- <el-menu-item index="5-1" @click="backRouter('user')">
             CRF发布审核
           </el-menu-item>
           <el-menu-item index="5-1" @click="backRouter('user')">
@@ -105,7 +109,7 @@
           </el-menu-item>
           <el-menu-item index="5-2" @click="backRouter('deo')">
             问卷修改审核
-          </el-menu-item>
+          </el-menu-item> -->
         </el-submenu>
       </el-menu>
 
@@ -131,21 +135,21 @@
   </el-tab-pane>
 </el-tabs>
 <div style='height: 80vh;'>
-    <el-scrollbar style='height: 100%;overflow-x: hidden;' class='scr'>
-<transition name='fade' >
+  <el-scrollbar style='height: 100%;overflow-x: hidden;' class='scr'>
+    <transition name='fade' >
 
-    
-        <keep-alive :include=activeList >
-    <router-view ref="Child" class='child-view' @addRouters='addTab' :key="$route.fullPath" style='overflow-x: hidden;min-height:   80vh'>
 
-    
-    </router-view>
+      <keep-alive :include=activeList >
+        <router-view ref="Child" class='child-view' @addRouters='addTab' :key="$route.fullPath" style='overflow-x: hidden;min-height:   80vh'>
+
+
+        </router-view>
       </keep-alive>
- 
 
-</transition>
-    </el-scrollbar>
-  </div>
+
+    </transition>
+  </el-scrollbar>
+</div>
 </el-main>
 </el-container>
 </div>
@@ -157,15 +161,9 @@
     data () {
       return {
         msg: 'Welcome to Your Vue.js App',
-        activeList:[],
+        
         activeName2: 'first',
-        editableTabsValue: 'pane',
-        editableTabs: [{
-          title: '系统首页',
-          name: '系统首页',
-          router:'pane',
-          query:{}
-        }],
+
         isCollapse:false,
         tabIndex: 1,
         // str:"/project|projectdetail2|projectdetail1/"
@@ -181,148 +179,91 @@
       },
       gotabrouter(itemOption){
 
-        let tabArr= this.editableTabs.find(item=>item.name == itemOption.name);
-        let query = tabArr.query || {};
-        // if(tabArr.router.indexOf('projectdetail') != -1){
-        //   // let reg = /\w\d+$/;
-        //   let router = tabArr.router
-        //   let filter = router.replace(/\d+$/,'');
-        //   console.log(filter)
+        let par = {
+          'itemOption':itemOption
+        };
+
+        this.$store.commit('toggleTab',par);
         
-        //         this.$router.push({name:filter,query:query});
-        //         return ;
-        // }
-
-        this.$router.push({name:tabArr.router,query:query});
-
-
+      
       },
       backRouter(to){
-        if(this.editableTabs.length > 7){
-          
-          return ;
-          alert("标签页不能大于7页");
-          
+          // if(this.editableTabs.length > 7){
+
+          //   return ;
+          //   alert("标签页不能大于7页");
+
+          // }
+          this.$router.push({name:to});
+        },
+        handleOpen(key, keyPath) {
+
+        },
+        handleClose(key, keyPath) {
+
+        },
+        handleClick(){
+
+        },
+        tabRoute(){
+
+        },
+
+        addTab(router,name,query){
+          let data = query||{};
+          let par = {
+            'router':router,
+            'name':name,
+            'data':data
+          };
+
+          this.$store.commit('addTab',par);
+
+        },
+        handleTabsEdit(targetName, action) {
+
+          let par = {
+            'targetName':targetName,
+            'action':action
+          };
+
+          this.$store.commit('deleteTab',par);
         }
-        this.$router.push({name:to});
-      },
-      handleOpen(key, keyPath) {
 
       },
-      handleClose(key, keyPath) {
-
-      },
-      handleClick(){
-
-      },
-      tabRoute(){
+      mounted(){
+       
 
       },
 
-      addTab(router,name,query){
-        let data = query||{};
-        let _this = this;
-          	//添加
-            let flag = this.editableTabs.some(item=>item.name == name);
-            
-
-
-
-            if(!flag){
-
-              let newTabName = name;
-              this.editableTabs.push({
-                title: name,
-                name: name,
-                router:router,
-                query:data
-
-              });
-  // if(router != 'projectdetail'){
-    
-  // }
-  _this.activeList.push(router);
-  console.log(_this.activeList);
-
-  this.editableTabsValue = newTabName;
-}else{
-
-
-  let tabArr = _this.editableTabs.find(item=>item.title == name)
-
-
-  _this.editableTabsValue = tabArr.title;
-
-}
-
-
-
-},
-handleTabsEdit(targetName, action) {
-  if (action === 'add') {
-    let newTabName = ++this.tabIndex + '';
-    this.editableTabs.push({
-      title: 'New Tab',
-      name: newTabName
-
-    });
-    this.editableTabsValue = newTabName;
-  }
-  if (action === 'remove') {
-    if(targetName == '系统首页') return;
-    let tabs = this.editableTabs;
-    let activeName = this.editableTabsValue;
-    if (activeName === targetName) {
-      tabs.forEach((tab, index) => {
-        if (tab.name === targetName) {
-          let nextTab = tabs[index + 1] || tabs[index - 1];
-          if (nextTab) {
-            activeName = nextTab.name;
-          }
-        }
-      });
+computed:{
+  activeList:{
+    get: function () {
+      return this.$store.state.activeList
+    },
+    set: function (newValue) {
+      this.$store.state.activeList = newValue
     }
 
-    //当前激活tab
-    this.editableTabsValue = activeName;
-
-    //去除tab
-    this.editableTabs = tabs.filter(tab => tab.name !== targetName);
-
-
-
-    //获取当前激活路由的参数
-    var query ={};
-    tabs.map(item=>{
-      if(item.title == this.editableTabsValue){
-        // console.log(item.query);
-        query = item.query || {};
-      }
-    })
-
-    var router ='';
-    tabs.map(item=>{
-      if(item.title == this.editableTabsValue){
-        
-        router = item.router;
-      }
-    })
-    //缓存列表
-    let num = 0;
-
-    this.activeList = this.activeList.filter(t => t == router);
-
-    // console.error(this.activeList);
-
-    this.$router.push({name:router,query:query});
-
+  },
+  editableTabsValue:{
+   get: function () {
+    return this.$store.state.editableTabsValue
+  },
+  set: function (newValue) {
+    this.$store.state.editableTabsValue = newValue
   }
+  
+},
+editableTabs:{
+ get: function () {
+  return this.$store.state.editableTabs
+},
+set: function (newValue) {
+  this.$store.state.editableTabs = newValue
 }
 
-},
-mounted(){
-    this.editableTabsValue = '系统首页';
-    this.activeList.push('pane');
+}
 
 },
 watch:{ 

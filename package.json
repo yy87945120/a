@@ -14,9 +14,11 @@
   },
   "dependencies": {
     "awe-dnd": "^0.3.4",
+    "echarts": "^4.2.0-rc.2",
     "el-tree-transfer": "^1.9.8",
     "element-ui": "^2.4.11",
     "js-md5": "^0.7.3",
+    "v-charts": "^1.19.0",
     "vue": "^2.5.21",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1",

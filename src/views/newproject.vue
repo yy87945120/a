@@ -93,11 +93,11 @@
 </template>
 
 <script>
-  import radio from '@/components/radio'
+
   export default {
     name: 'newproject',
     components:{
-      radio
+      // radio
     },
     data () {
       return {

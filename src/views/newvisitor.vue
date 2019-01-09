@@ -1,5 +1,5 @@
 <template>
-  <div class="visit">
+  <div class="newvisitor">
     <el-row>
       <el-col :span='12'><el-breadcrumb separator-class="el-icon-arrow-right">
         <el-breadcrumb-item :to="{ path: '/project' }">我的项目</el-breadcrumb-item>
@@ -22,7 +22,7 @@
 
 <script>
 export default {
-  name: 'visit',
+  name: 'newvisitor',
   data () {
     return {
       msg: 'Welcome to Your Vue.js App'

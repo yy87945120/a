@@ -1,6 +1,6 @@
 <template>
   <div class="radio">
-    <el-tooltip class="item" effect="light" content="Top Center 提示文字" placement="top">
+    <el-tooltip class="item" effect="light" content="Top Center ddd" placement="top">
       
    
     <div  @mouseover='editBtn = true' @mouseout='editBtn = false' :style="editBtn||editorShow?'box-shadow:1px solid rgb(239,239,239);position: relative; box-shadow:rgb(239,239,239) 0px 0px 10px;margin-top:15px':'position: relative;margin-top:15px'">
@@ -14,14 +14,24 @@
            <span style='text-align:left;color: red;display: inline-block;margin-top:5px;width: 8px;margin-right: 15px' ><span v-show='required'>*</span></span>
         </el-col>
         
-        <el-col :span="width">
+        <el-col :span="width" style='padding-top: 2.9px'>
           <el-row>
-            <div v-for='(item,index) in formItem'>
+            <el-checkbox-group 
+    v-model="checkItem"
+    :min="1"
+    :max="2">
+            <div  v-for="(item,index) in formItem"  >
               <el-col :span="span" class='itemName' style="margin-top:8px;margin-bottom:8px">
-               <el-radio v-model="checkItem" disabled  :label= 'item.radioValue'></el-radio>
+
+
+                     <el-checkbox :label="item.checkValue" :key="index" disabled>{{item.checkValue}}</el-checkbox>
+
+
+               <!-- <el-radio v-model="checkItem" disabled :label='item.check' >{{item.radioValue}}</el-radio> -->
                <input type='text' disabled="" style='outline: none;border: none;border-bottom: 1px solid rgb(40,40,40);width: 100px'  v-model = 'item.description' v-if = 'item.allowContent'/>
              </el-col>
            </div>
+             </el-checkbox-group>
          </el-row>
        </el-col>
        <el-col :span="3" style='position:absolute;right:0px;min-width: 110px' v-show="editorShow?true:editBtn" >
@@ -63,7 +73,7 @@
         <el-row class='item_controller_row'>
 
           <el-col :span='8'>
-            <el-input placeholder='请填写内容' v-model="item.radioValue" clearable>
+            <el-input placeholder='请填写内容' v-model="item.checkValue" clearable>
 
             </el-input>
 
@@ -131,6 +141,10 @@
     components: {
       editor
     },
+    props:{
+        groupId:0,
+        detailindex:0
+    },
     data() {
       return {
         msg: 'Welcome to Your Vue.js App',
@@ -140,19 +154,18 @@
         itemId:1,
         label:'未定义',
 
-        checkItem:'',
+        checkItem:[],
         formItem: [
         { 
           detailItemId:0,
-          radioValue: '选项1',
+          checkValue: '选项1',
           check: false,
           allowContent:false,
-         
           description:''
         },
         { 
           detailItemId:0,
-          radioValue: '选项2',
+          checkValue: '选项2',
          
           check: false,
           allowContent:false,
@@ -178,22 +191,32 @@
       },
       //默认选项按钮事件
       checkFlag(item,index){
-        let _this = this;
-
-        for(let i = 0 ; i < _this.formItem.length ; i++){
-          if(i != index){
-            _this.formItem[i].check = false;
-          }
-
-        }
+      
+        item.check = !item.check
         
-        if(item.check == false){
-          this.checkItem = this.formItem[index].radioValue;
-        }else{
-          this.checkItem = '';
-        }
+        // this.formItem[index].check = !item.check;
+        // this.checkItem = [];
+        // if(item.check){
+            // this.formItem.map(item=>{
+            //     if(item.check){
+            //       this.checkItem.push(item.checkValue);
+            //     }
+                
+            // });
+            
+            // console.log(this.checkItem);
+        // }else{
+        //    this.checkItem.push(item.)
+        // }
+       
+
+        // if(item.check == false){
+        //   this.checkItem = this.formItem[index].check;
+        // }else{
+        //   this.checkItem = '';
+        // }
         
-        this.formItem[index].check = !item.check;
+        
       },
       //是否可以添加说明内容
       toggleFlag(item,index){
@@ -205,7 +228,7 @@
         let _this = this;
         let initradio = {
           detailItemId:0,
-          radioValue: '',
+          checkValue: '',
           check: false,
           allowContent:false,
         
@@ -213,7 +236,7 @@
         };
         this.formItem.splice(index+1,0,initradio);
 
-        this.formItem[index+1].radioValue = '选项'+ this.formItem.length;
+        this.formItem[index+1].checkValue = '选项'+ this.formItem.length;
 
       },
 
@@ -279,6 +302,7 @@
        handler(newName, oldName) {
 
             this.refrehItemId();
+            this.checkItem = [];
             this.formItem.map((item,index)=>{
               // this.formItem.map((detailitem,detailindex)=>{
               //   if(item.radioValue == detailitem.radioValue){
@@ -289,13 +313,25 @@
 
               // })
               
-
-              if(item.radioValue == "" || item.radioValue == undefined){
-                item.radioValue = "选项"+(index+1);
+              if(item.check){
+                this.checkItem.push(item.checkValue);
               }
-              if(item.check ===  true ){this.checkItem=item.radioValue} 
+
+
+              if(item.checkValue == "" || item.checkValue == undefined){
+
+                    this.$notify({
+                    title: '提示',
+                    message: '第'+(index+1)+'选项框值为空，将不能保存',
+                    type: 'warning'
+                  });
+              }
+              // if(item.check ===  true ){this.checkItem=item.radioValue} 
             });
-            
+
+            let groupId = this.groupId;
+            let detailindex = this.detailindex;
+            this.$emit('getItemVal',newName,groupId,detailindex);
       },
       deep: true,
                
@@ -309,7 +345,7 @@
   }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
+Add "scoped" attribute to limit CSS to this component only
 <style scoped>
 .itemName{
   text-align:left;
@@ -318,10 +354,13 @@
   margin-top:5px;
 }
 
-.itemName /deep/ .el-radio{
-  white-space:normal;
+.itemName /deep/ .el-checkbox{
+  white-space:normal !important;
   word-wrap:break-all; 
   /*overflow:hidden;*/
   
+}
+.itemName /deep/ .el-checkbox__label{
+    display: inline;
 }
 </style>
