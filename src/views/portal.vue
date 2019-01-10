@@ -22,8 +22,8 @@
 
 
     </div>
-    <div class='nav-item inform' @click.native="navItem('message')"><el-badge :value="200" :max="99" class="item">
-     <i class="el-icon-bell"></i> 消息
+    <div class='nav-item inform' @click="addTab('inform')"><el-badge :value="200" :max="99" class="item">
+        <i class="el-icon-bell">消息</i> 
    </el-badge></div>
    <div class='nav-item' @click='loginout()'><i class='iconfont icon-tuichu2' style="margin-right: 3px"></i>退出</div>
  </div>
@@ -77,6 +77,17 @@
       loginout(){
           sessionStorage.removeItem('user');
           this.$router.push({name:'login'});
+      },
+      addTab(){
+          let data = {
+            id:0
+          }
+          let par = {
+            name:'通知信息',
+            router:'inform',
+            data:data
+          }
+          this.$store.commit('addTab',par);
       }
     }
   }

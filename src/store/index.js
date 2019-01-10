@@ -43,12 +43,13 @@ const store = new Vuex.Store({
           		state.activeList.push(router);
           		state.editableTabsValue = newTabName;
           		// console.log(state.editableTabsValue);
-          		// this.$router.push({name:router,query:query});
+          		routerLink.push({name:router,query:data});
           		//此处可以插入并更新localstorage以防止刷新时路由丢失，待开发
           	}else{
           		//如果存在直接跳转到标签页
-          		let tabArr = state.editableTabs.find(item=>item.title == name)
-          		state.editableTabsValue = tabArr.title;
+          		let tabArr = state.editableTabs.find(item=>item.name == name);
+          		state.editableTabsValue = tabArr.name;
+          		routerLink.push({name:router,query:data});
 
           	}
           },
@@ -120,20 +121,31 @@ const store = new Vuex.Store({
 
 		},
 		replaceTab(state,par){
-			//参数 1.router跳转的路由to 2、本来的路由from 可以用routerLink获取
-			//方式 把edittableTabs里面的本来数组去掉，把缓存列表的数组去掉，焦点标签变为to的路由
-			//
+			//参数 1.router跳转的路由to 2、本来的路由from 可以用routerLink获取 3.需要跳转的路由名字
+			//方式 1.把edittableTabs里面的本来数组去掉 2.缓存列表的数组去掉 3.焦点标签变为to的路由
+			//参数获取
+			let to = par.to;
+			let name = par.name;
+			let from = routerLink.name;
+			// 步骤1
+			state.editableTabs = state.editableTabs.filter(item=>item.router == from );
+			// 步骤2
+			state.activeList = state.activeList.filter(item=>item == from);
+			// 步骤3
+			state.editableTabsValue = name;
 
 		},
-		refreshTab(){
-			//刷新路由待开发
+		refreshTab(state,par){
+			// 参数 1.当前路由
+			// 方式 1.去掉当前缓存列表的路由的值 2.跳转到当前路由 3.再把当前的路由的值添加回缓存列表
+			let from = routerLink.name;
+			// 步骤1
+			state.activeList = state.activeList.filter(item=>item == from);
+			// 步骤2
+			routerLink.push({name:'from'});
+			// 步骤3
+			state.activeList.push(from);
 		}
-
-	},
-	actions: {
-		// add({commit}, router,name,query) {
-  //       commit('addtab',router,name,query)    // 提交到mutations中处理    
-  //   }
 
 	}
 })

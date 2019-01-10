@@ -24,104 +24,111 @@ import visit from '@/views/visit'
 
 import projectdetail from '@/views/projectdetail';
 
+import inform from '@/views/inform';
+
 
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
-    {
-      path: '/',
-      name: 'login',
-      component: login
-    },
-  	{
-      path: '/portal',
-      name: 'portal',
-      component: portal,
-      redirect:'/back',
-      children:[
+  {
+    path: '/',
+    name: 'login',
+    component: login
+  },
+  {
+    path: '/portal',
+    name: 'portal',
+    component: portal,
+    redirect:'/back',
+    children:[
 
-          {
-              path: '/message',
-              name: 'message',
-              component : message
-          },
-          {
-              path: '/back',
-              name: 'back',
-              component:back,
-              redirect: '/pane',
-              children: [
-                {
-                  path: '/pane',
-                  name: 'pane',
-                  component:pane
-                },
-                {
-                  path: '/user',
-                  name: 'user',
-                  component:user
-                },
-                {
-                  path: '/dep',
-                  name: 'dep',
-                  component:dep
-                },
-                {
-                  path: '/form',
-                  name: 'form',
-                  component:form
-                },
-                {
-                  path: '/crf',
-                  name: 'crf',
-                  component:crf
-                },
-                {
-                  path: '/newcrf',
-                  name: 'newcrf',
-                  component:newcrf
-                },
-                {
-                  path: '/power',
-                  name: 'power',
-                  component:power
-                },
-                {
-                  path: '/newproject',
-                  name: 'newproject',
-                  component:newproject
-                },
-                {   
+    {
+      path: '/message',
+      name: 'message',
+      component : message
+    },
+    {
+      path: '/back',
+      name: 'back',
+      component:back,
+      redirect: '/pane',
+      children: [
+      {
+        path: '/pane',
+        name: 'pane',
+        component:pane
+      },
+      {
+        path: '/user',
+        name: 'user',
+        component:user
+      },
+      {
+        path: '/dep',
+        name: 'dep',
+        component:dep
+      },
+      {
+        path: '/form',
+        name: 'form',
+        component:form
+      },
+      {
+        path: '/crf',
+        name: 'crf',
+        component:crf
+      },
+      {
+        path: '/newcrf',
+        name: 'newcrf',
+        component:newcrf
+      },
+      {
+        path: '/power',
+        name: 'power',
+        component:power
+      },
+      {
+        path: '/newproject',
+        name: 'newproject',
+        component:newproject
+      },
+      {   
         path: '/visit ',
         name: 'visit',
         component:visit
-       } ,{
-              path: '/project',
-              name: 'project',
-              component : project
-          },
-          {
-              path: '/project2',
-              name: 'project2',
-              component : project2
-          },
-          {
-              path: '/detail',
-              name: 'detail',
-              component : detail
-          },
-          {
-              path: '/projectdetail',
-              name: 'projectdetail',
-              component : projectdetail
-          }
-                 
-              ] 
-                
-          }
-      ]
+      } ,{
+        path: '/project',
+        name: 'project',
+        component : project
+      },
+      {
+        path: '/project2',
+        name: 'project2',
+        component : project2
+      },
+      {
+        path: '/detail',
+        name: 'detail',
+        component : detail
+      },
+      {
+        path: '/projectdetail',
+        name: 'projectdetail',
+        component : projectdetail
+      },
+      {
+        path: '/inform',
+        name: 'inform',
+        component: inform
+      }
+      
+      ] 
+      
     }
+    ]
+  }
   ]
 })

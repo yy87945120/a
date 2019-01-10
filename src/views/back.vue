@@ -3,7 +3,7 @@
     <el-container class='back_container'>
 
       <el-aside>
-        <el-row class="tac">
+        <el-row >
           <el-col :span="24">
             <h3 style='margin-top:10px;margin-bottom:20px'>临床科研数据采集系统（EDC）
             </h3>
@@ -21,15 +21,12 @@
                     <i class="el-icon-location"></i>
                     <span>基础信息维护</span>
                   </template>
-                  <el-menu-item index="1-1" @click="backRouter('user');addTab('user','用户信息')">
+                  <el-menu-item index="1-1" @click="addTab('user','用户信息')">
                     用户信息
                   </el-menu-item>
-                  <el-menu-item index="1-2" @click="backRouter('power');addTab('power','权限管理')">
+                  <el-menu-item index="1-2" @click="addTab('power','权限管理')">
                     权限管理
                   </el-menu-item>
-
-
-
                 </el-submenu>
 
                 <el-submenu index="2">
@@ -37,10 +34,10 @@
                     <i class="el-icon-menu"></i>
                     <span slot="title">CRF维护</span>
                   </template>
-                  <el-menu-item index="2-1" @click="backRouter('newcrf');addTab('newcrf','新建CRF字典')">
+                  <el-menu-item index="2-1" @click="addTab('newcrf','新建CRF字典')">
                     新建CRF字典
                   </el-menu-item>
-                  <el-menu-item index="2-2" @click="backRouter('crf');addTab('crf','编辑CRF字典')">
+                  <el-menu-item index="2-2" @click="addTab('crf','编辑CRF字典')">
                     编辑CRF字典
                   </el-menu-item>
                   <el-menu-item index="2-3" >
@@ -53,14 +50,14 @@
                   <i class="el-icon-picture"></i>
                   <span slot="title">项目维护</span>
                 </template>
-                <el-menu-item index="3-1" @click="backRouter('newproject');addTab('newproject','新建项目')">
+                <el-menu-item index="3-1" @click="addTab('newproject','新建项目')">
                   新建项目
                 </el-menu-item>
-                <el-menu-item index="3-2" @click="backRouter('project');addTab('project','我的项目')">
+                <el-menu-item index="3-2" @click="addTab('project','我的项目')">
                   我的项目
                 </el-menu-item>
 
-                <el-menu-item index="3-3" @click="backRouter('project2');addTab('project2','我的项目2')">
+                <el-menu-item index="3-3" @click="addTab('project2','我的项目2')">
                   我的项目2
                 </el-menu-item>
               </el-submenu>
@@ -184,18 +181,18 @@
         };
 
         this.$store.commit('toggleTab',par);
-        
+
       
       },
-      backRouter(to){
-          // if(this.editableTabs.length > 7){
+      // backRouter(to){
+      //     // if(this.editableTabs.length > 7){
 
-          //   return ;
-          //   alert("标签页不能大于7页");
+      //     //   return ;
+      //     //   alert("标签页不能大于7页");
 
-          // }
-          this.$router.push({name:to});
-        },
+      //     // }
+      //     this.$router.push({name:to});
+      //   },
         handleOpen(key, keyPath) {
 
         },

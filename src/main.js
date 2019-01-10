@@ -5,6 +5,8 @@ import App from './App'
 import router from './router'
 import md5 from 'js-md5';
 import store from './store'
+import 'element-ui/lib/theme-chalk/index.css';
+import ElementUI from 'element-ui';
 // import E from 'wangeditor'
 
 
@@ -58,8 +60,7 @@ if(to.path == '/') {
   }
 })  
 
-import 'element-ui/lib/theme-chalk/index.css';
-import ElementUI from 'element-ui';
+
 Vue.use(ElementUI);
 Vue.config.productionTip = false
 
