@@ -98,10 +98,9 @@ export default {
 		region:''
 
       },
-      select:'ID',
+      select:'',
       tableData: [{
           date: '2016-05-03',
-          id:0,
           name: '王小虎',
           province: '上海',
           city: '普陀区',
@@ -110,7 +109,6 @@ export default {
         }, {
           date: '2016-05-02',
           name: '王小虎',
-          id:1,
           province: '上海',
           city: '普陀区',
           address: '上海市普陀区金沙江路 1518 弄',
@@ -118,14 +116,12 @@ export default {
         }, {
           date: '2016-05-04',
           name: '王小虎',
-          id:2,
           province: '上海',
           city: '普陀区',
           address: '上海市普陀区金沙江路 1518 弄',
           zip: 200333
         }, {
           date: '2016-05-01',
-          id:3,
           name: '王小虎',
           province: '上海',
           city: '普陀区',
@@ -136,22 +132,12 @@ export default {
   },
   methods:{
   		addvisitor(){
+
           this.$router.push({name:'newcrf'});
           this.$emit("addRouters",'newcrf','哈哈')
 
-  		},
-      handleClick(item){
-          // console.log(par);
-          let name = "ID:"+item.id+" "+item.name+" 录入数据";
-          let router = 'newcrf';
-          let data = {id:item.id};
-          let par = {
-            'name':name,
-            'router':router,
-            'data':data
-          }
-          this.$store.commit('addTab',par);
-      }
+          
+  		}
   },
   mounted(){
 
