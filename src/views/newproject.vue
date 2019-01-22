@@ -131,9 +131,9 @@
   padding-right: 50px
 }
 .newproject_form_item{
-  padding: 9px 0px;
+  padding: 9px 0px 9px;
   border-bottom: 1px solid rgb(239,239,239);
-  line-height: 36px;
+  
 
 }
 .newproject_form_item /deep/ .el-input__inner{
